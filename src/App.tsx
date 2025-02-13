@@ -1,4 +1,4 @@
-
+// App.tsx
 import "./App.css";
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";

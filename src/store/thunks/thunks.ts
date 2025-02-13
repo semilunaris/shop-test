@@ -21,7 +21,8 @@ export const addProduct = createAsyncThunk<Product, Product, { rejectValue: stri
   'products/addProduct',
   async (newProduct, { rejectWithValue }) => {
     try {
-      const response = await addProductApi(newProduct);
+      //@ts-ignore /// а то джсон сервер не видаляє
+      const response = await addProductApi({...newProduct, id: newProduct.id.toString()});
       return response;
     } catch (error: any) {
       return rejectWithValue(error.message);
