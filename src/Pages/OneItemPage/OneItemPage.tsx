@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import "./OneItemPage.css";
 import { Product } from "../../models/Product";
+import { RootState } from '../../store/index'
 
-// Пример данных — в реальном приложении замените на получение данных с сервера
 const products: Product[] = [
   {
     id: 1,
@@ -14,8 +13,8 @@ const products: Product[] = [
     size: { width: 10, height: 20 },
     weight: "1 кг",
     comments: [
-      { id: 1, text: "Отличный продукт!" },
-      { id: 2, text: "Качество на высоте" },
+      { id: 1, productId: 1, description: "Отличный продукт!", date: "2025-02-01" },
+      { id: 2, productId: 1, description: "Качество на высоте", date: "2025-02-02" },
     ],
   },
   {
@@ -62,7 +61,10 @@ const OneItemPage: React.FC = () => {
       {product.comments.length > 0 ? (
         <ul>
           {product.comments.map((comment) => (
-            <li key={comment.id}>{comment.text}</li>
+            <li key={comment.id}>
+              <p>{comment.description}</p>
+              <small>{comment.date}</small>
+            </li>
           ))}
         </ul>
       ) : (

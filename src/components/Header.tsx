@@ -28,31 +28,11 @@ export const Header = () => {
         <div className={cls.line}></div>
       </div>
       <nav className={`${cls.nav} ${isOpen ? cls.open : ""}`} onClick={toggleMenu}>
-      {!isAdmin &&  <ul className={cls.navList}>
-          {links.map((link) => (
-            <li key={link.href}>
-              <a className={cls.link} href={link.href}>
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <NavLink className={cls.link} to="/">
-              Главная
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className={cls.link} to="/admin">
-              Админ
-            </NavLink>
-          </li>
-          </ul>}
+     
        {isAdmin &&   <ul className={cls.navList}>
-        <NavLink className={cls.link} to="/" onClick={toggleMenu}>
-              ГОЛОВНА
-            </NavLink>
+      
             <li>
-              <NavLink  className={cls.link}  to="/admin" onClick={toggleMenu}>АДМІСТРАТОР</NavLink>
+              <NavLink  className={cls.link}  to="/shop" onClick={toggleMenu}>Shop</NavLink>
             </li>
           </ul>}       
       </nav>

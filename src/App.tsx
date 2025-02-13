@@ -1,12 +1,10 @@
 import "./App.css";
 import React, { Suspense, lazy } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Layout } from "./components/Layout/Layout";
-import { ToastContainer } from "react-toastify";
 import { Loader } from "./components/Loader/Loader";
-import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import  ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { Layout } from "./components/Layout/Layout";
 
-// Динамическая загрузка секций
 const StorePage = lazy(() => import("./Pages/StorePage/StorePage"));
 const OneItemPage = lazy(() => import("./Pages/OneItemPage/OneItemPage"));
 
@@ -26,7 +24,7 @@ const App: React.FC = () => {
           </ErrorBoundary>
         </Suspense>
       </BrowserRouter>
-      <ToastContainer />
+
     </div>
   );
 };
