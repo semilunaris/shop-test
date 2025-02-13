@@ -1,9 +1,12 @@
+// ProductList.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../../models/Product';
 import { addProduct, removeProduct, setProducts } from '../../store/productsSlice';
 import { RootState } from '../../store/index'
-
+import ProductCard from '../ProductCard/ProductCard';
+import styles from './ProductList.module.scss'; // Импортируем стили
+import Modal from '../Modal/Modal';
 
 const ProductList: React.FC = () => {
   const dispatch = useDispatch();
@@ -21,49 +24,43 @@ const ProductList: React.FC = () => {
   });
 
   useEffect(() => {
-    // fetch('http://localhost:5000/products')
-    //   .then((res) => res.json())
-    //   .then((data) => dispatch(setProducts(data)));
+    fetch('http://localhost:5000/products')
+      .then((res) => res.json())
+      .then((data) => dispatch(setProducts(data)));
   }, [dispatch]);
 
   const handleAddProduct = () => {
-    // fetch('http://localhost:5000/products', {
-    //   method: 'POST',
-    //   body: JSON.stringify(newProduct),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => dispatch(addProduct(data)))
-    //   .finally(() => setIsModalOpen(false));
+    fetch('http://localhost:5000/products', {
+      method: 'POST',
+      body: JSON.stringify(newProduct),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => dispatch(addProduct(data)))
+      .finally(() => setIsModalOpen(false));
   };
 
   const handleDeleteProduct = (id: number) => {
-    // fetch(`http://localhost:5000/products/${id}`, { method: 'DELETE' })
-    //   .then(() => dispatch(removeProduct(id)));
+    fetch(`http://localhost:5000/products/${id}`, { method: 'DELETE' })
+      .then(() => dispatch(removeProduct(id)));
   };
 
   return (
-    <div>
+    <div className={styles['product-list']}>
       <button onClick={() => setIsModalOpen(true)}>Add Product</button>
+      
       {isModalOpen && (
-        <div>
-          <input
-            type="text"
-            value={newProduct.name}
-            onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-            placeholder="Product name"
-          />
-          <button onClick={handleAddProduct}>Confirm</button>
-          <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+        <div className={styles.modal}>
+        <Modal setIsModalOpen={setIsModalOpen} handleAddProduct={handleAddProduct}/>
         </div>
       )}
 
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            {product.name}
+            <ProductCard product={product} />
             <button onClick={() => handleDeleteProduct(product.id)}>Delete</button>
           </li>
         ))}
