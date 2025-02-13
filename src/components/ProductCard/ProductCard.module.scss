@@ -1,0 +1,51 @@
+/* ProductCard.scss */
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  
+    &__image {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+  
+    &__details {
+      text-align: center;
+      margin-top: 16px;
+    }
+  
+    &__name {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  
+    &__weight,
+    &__size,
+    &__count {
+      font-size: 1rem;
+      margin: 8px 0;
+    }
+  
+    &__comments {
+      margin-top: 16px;
+    }
+  
+    &__comment {
+      font-size: 0.9rem;
+      color: #555;
+  
+      small {
+        display: block;
+        color: #888;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  
