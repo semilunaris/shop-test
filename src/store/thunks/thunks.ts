@@ -1,28 +1,41 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Product } from "../../models/Product";
-import * as api from "../api/products"
-export const fetchProducts = createAsyncThunk(
-    'products/fetchProducts',
-    async () => {
-      const products = await api.getProducts();
-      return products;
-    }
-  );
-  
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Product } from '../../models/Product';
+import { fetchProducts } from '../api/products';
+import { deleteProductApi,addProductApi } from '../api/products';
 
-  export const addProduct = createAsyncThunk(
-    'products/addProduct',
-    async (newProduct: Product) => {
-      const product = await api.createProduct(newProduct);
-      return product;
-    }
-  );
-  
 
-  export const removeProduct = createAsyncThunk(
-    'products/removeProduct',
-    async (id: number) => {
-      await api.deleteProduct(id);
-      return id; 
+export const loadProducts = createAsyncThunk<Product[], void, { rejectValue: string }>(
+  'products/loadProducts',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetchProducts();
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
     }
-  );
+  }
+);
+
+export const addProduct = createAsyncThunk<Product, Product, { rejectValue: string }>(
+  'products/addProduct',
+  async (newProduct, { rejectWithValue }) => {
+    try {
+      const response = await addProductApi(newProduct);
+      return response;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const removeProduct = createAsyncThunk<void, number, { rejectValue: string }>(
+  'products/removeProduct',
+  async (productId, { rejectWithValue }) => {
+    try {
+      await deleteProductApi(productId);
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

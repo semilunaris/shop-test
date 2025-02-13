@@ -1,23 +1,22 @@
 import axios from 'axios';
 import { Product } from '../../models/Product';
 
-const API_URL = 'http://localhost:5000/products';
+const apiUrl = 'http://localhost:5000/products';
 
-export const getProducts = async (): Promise<Product[]> => {
-  const response = await axios.get(API_URL);
+export const fetchProducts = async (): Promise<Product[]> => {
+  const response = await axios.get(apiUrl);
   return response.data;
 };
 
-export const createProduct = async (newProduct: Product): Promise<Product> => {
-  const response = await axios.post(API_URL, newProduct, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+export const addProductApi = async (product: Product): Promise<Product> => {
+  const response = await axios.post(apiUrl, product);
   return response.data;
 };
 
-export const deleteProduct = async (id: number): Promise<void> => {
-  await axios.delete(`${API_URL}/${id}`);
-};
-
+export const deleteProductApi = async (id: number): Promise<void> => {
+    try {
+      await axios.delete(`http://localhost:5000/products/${id}`);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };

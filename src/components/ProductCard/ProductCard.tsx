@@ -4,9 +4,10 @@ import React from 'react';
 
 interface ProductCardProps {
   product: Product;
+  handleDeleteProduct: (id: number)=> void
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product,  handleDeleteProduct}) => {
   return (
     <div className="product-card">
       <img src={product.imageUrl} alt={product.name} className="product-card__image" />
@@ -27,6 +28,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               </li>
             ))}
           </ul>
+          <button onClick={() => {
+              console.log(product.id)
+              handleDeleteProduct(product.id)}}>Delete</button>
         </div>
       </div>
     </div>
